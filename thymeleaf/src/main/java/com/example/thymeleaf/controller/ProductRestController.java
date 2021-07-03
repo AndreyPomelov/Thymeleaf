@@ -5,6 +5,7 @@ import com.example.thymeleaf.controller.mapper.ProductMapper;
 import com.example.thymeleaf.exception.TestException;
 import com.example.thymeleaf.model.entity.Product;
 import com.example.thymeleaf.model.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * @author Andrey Pomelov
  * @version 1.0-SNAPSHOT
  */
+@RequiredArgsConstructor
 @RequestMapping("/rest/products")
 @RestController
 public class ProductRestController {
@@ -23,12 +25,6 @@ public class ProductRestController {
     private final ProductRepository productRepository;
     /** Ссылка на маппер */
     private final ProductMapper productMapper;
-
-    /** Конструктор */
-    public ProductRestController(ProductRepository productRepository, ProductMapper productMapper) {
-        this.productRepository = productRepository;
-        this.productMapper = productMapper;
-    }
 
     /** Метод, возвращающий продукт по ID
      *

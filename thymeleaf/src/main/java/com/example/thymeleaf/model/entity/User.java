@@ -1,5 +1,6 @@
 package com.example.thymeleaf.model.entity;
 
+import lombok.Data;
 import javax.persistence.*;
 
 /** Класс, описывающий пользователя
@@ -7,6 +8,7 @@ import javax.persistence.*;
  * @author Andrey Pomelov
  * @version 1.0-SNAPSHOT
  */
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,28 +23,4 @@ public class User {
 
     @Column(name = "password")
     private String password;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

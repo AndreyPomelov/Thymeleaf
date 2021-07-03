@@ -3,6 +3,7 @@ package com.example.thymeleaf.controller;
 import com.example.thymeleaf.model.entity.Product;
 import com.example.thymeleaf.model.repository.ProductRepository;
 import com.example.thymeleaf.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Andrey Pomelov
  * @version 1.0-SNAPSHOT
  */
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 public class MainController {
@@ -21,12 +23,6 @@ public class MainController {
     /** Ссылки на репозитории, осуществляющие взаимодействие с БД */
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
-
-    /** Конструктор */
-    public MainController(ProductRepository productRepository, UserRepository userRepository) {
-        this.productRepository = productRepository;
-        this.userRepository = userRepository;
-    }
 
     /** Метод, принимающий гет-запрос по корневому пути
      *
