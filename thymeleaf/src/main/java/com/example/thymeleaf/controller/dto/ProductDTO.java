@@ -1,5 +1,7 @@
 package com.example.thymeleaf.controller.dto;
 
+import lombok.Data;
+
 /** Класс, описывающий продукт, передаваемый по REST-протоколу
  * Маппится из класса Product, сущности которого содержатся в БД
  *
@@ -8,6 +10,7 @@ package com.example.thymeleaf.controller.dto;
  * @see com.example.thymeleaf.model.entity.Product
  * @see com.example.thymeleaf.controller.mapper.ProductMapper
  */
+@Data
 public class ProductDTO {
 
     /** ID продукта */
@@ -18,24 +21,4 @@ public class ProductDTO {
 
     /**  Стоимость продукта */
     private int price;
-
-    /** Далее - стандартные геттеры и сеттеры */
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public int getPrice() {
-        return price;
-    }
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }

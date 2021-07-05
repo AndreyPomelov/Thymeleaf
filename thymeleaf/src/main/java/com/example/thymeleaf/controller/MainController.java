@@ -2,6 +2,8 @@ package com.example.thymeleaf.controller;
 
 import com.example.thymeleaf.model.entity.Product;
 import com.example.thymeleaf.model.repository.ProductRepository;
+import com.example.thymeleaf.model.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,17 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Andrey Pomelov
  * @version 1.0-SNAPSHOT
  */
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/")
 public class MainController {
 
-    /** Ссылка на репозиторий, осуществляющий взаимодействие с БД */
+    /** Ссылки на репозитории, осуществляющие взаимодействие с БД */
     private final ProductRepository productRepository;
-
-    /** Конструктор */
-    public MainController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final UserRepository userRepository;
 
     /** Метод, принимающий гет-запрос по корневому пути
      *
@@ -34,6 +33,17 @@ public class MainController {
     public String index(Model model) {
         model.addAttribute("products", productRepository.findAll());
         return "index";
+    }
+
+    /** Метод, принимающий гет-запрос перехода на страницу пользователей
+     *
+     * @param model модель, в которую передаётся список пользователей
+     * @return имя страницы, передаваемой клиенту
+     */
+    @RequestMapping(value = "users", method = RequestMethod.GET)
+    public String users(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "users";
     }
 
     /** Метод, принимающий гет-запрос перехода на страницу
@@ -50,6 +60,20 @@ public class MainController {
         return "add";
     }
 
+    /** Метод, принимающий гет-запрос перехода на страницу
+     *
+     * с формой для редактирования продукта
+     * @param model модель, в которую передаётся пустой объект
+     *              для заполнения его полей через форму
+     * @return имя страницы с формой
+     */
+    @RequestMapping(value = "update", method = RequestMethod.GET)
+    public String update(Model model) {
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "update";
+    }
+
     /** Метод, принимающий пост-запрос с данными из заполненной формы
      *
      * @param product экземпляр класса Product с заполненными полями
@@ -58,8 +82,21 @@ public class MainController {
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String save(Product product) {
+        product.setId(0L);
         productRepository.save(product);
         return "add";
+    }
+
+    /** Метод, принимающий пост-запрос с данными для редактирования объекта
+     *
+     * @param product экземпляр класса Product с заполненными полями
+     * @see Product
+     * @return имя страницы с формой
+     */
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String updateProduct(Product product) {
+        productRepository.save(product);
+        return "update";
     }
 
     /** Метод, принимающий гет-запрос для удаления продукта из БД
